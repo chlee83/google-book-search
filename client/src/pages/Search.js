@@ -38,8 +38,8 @@ class Search extends Component {
 
   saveButton = event => {
     const bookID = event.currentTarget.id;
-    
-    for (var i = 0; i < this.state.books[i].length; i++) {
+
+    for (var i = 0; i < this.state.books.length; i++) {
 
       if(bookID === this.state.books[i].id) {
         console.log(this.state.books[i])
@@ -48,6 +48,8 @@ class Search extends Component {
       } 
 
     }
+
+
   }
 
   handleInputChange = event => {
@@ -116,13 +118,13 @@ class Search extends Component {
                                 <Row>
                                   <div className="col-md-3">
                                     <h5>
-                                      <a href={each.volumeInfo.infoLink} target="_blank">{each.volumeInfo.title}</a>
+                                      {each.volumeInfo.title}
                                     </h5>
                                   </div>
                                   
                                   <div className="col-md-9 text-right">
-                                  <button className="btn btn-outline-info"><a href={each.volumeInfo.infoLink} target="_blank">View</a></button>
-                                    <button onClick={this.saveButton} id={each.id}>Save</button>
+                                  <a href={each.volumeInfo.infoLink} target="_blank"><button className="btn btn-outline-info">View</button></a>
+                                    <button className="btn btn-outline-primary ml-2" onClick={this.saveButton} id={each.id}>Save</button>
                                   </div>
                                 </Row>
 

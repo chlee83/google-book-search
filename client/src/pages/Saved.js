@@ -12,7 +12,9 @@ class Search extends Component {
     books: [],
     title: "",
     author: "",
-    synopsis: ""
+    description: "",
+    image: "",
+    link: ""
   };
 
   componentDidMount() {
@@ -22,7 +24,14 @@ class Search extends Component {
   loadBooks = () => {
     API.getBooks()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", synopsis: "" })
+        this.setState({ 
+          books: res.data, 
+          title: "",
+          author: "",
+          description: "",
+          image: "",
+          link: ""
+        })
       )
       .catch(err => console.log(err));
   };
@@ -33,25 +42,6 @@ class Search extends Component {
       .catch(err => console.log(err));
   };
 
-  handleInputChange = event => {
-    const { name, value } = event.target;
-    this.setState({
-      [name]: value
-    });
-  };
-
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (this.state.title && this.state.author) {
-      API.saveBook({
-        title: this.state.title,
-        author: this.state.author,
-        synopsis: this.state.synopsis
-      })
-        .then(res => this.loadBooks())
-        .catch(err => console.log(err));
-    }
-  };
 
   render() {
     return (
@@ -64,27 +54,62 @@ class Search extends Component {
             </Jumbotron>
             
             <Jumbotron>
+
               <div className="text-left">
-              <h3>Saved Books</h3>
-              
-            {this.state.books.length ? (
-              <List>
-                {this.state.books.map(book => (
-                  <ListItem key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteBook(book._id)} />
-                  </ListItem>
-                ))}
-              </List>
-              
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-            </div>
+
+                <h3>Results</h3>
+
+                {this.state.books.length ? (
+                  
+                    <div>
+
+                        {this.state.books.map(each => {
+                          return (
+                          <>
+
+                              <div className="card bg-light mb-3">
+
+                                <div className="card-header">
+
+                                  <Row>
+                                    <div className="col-md-3">
+                                      <h5>
+                                        {each.volumeInfo.title}
+                                      </h5>
+                                    </div>
+                                    
+                                    <div className="col-md-9 text-right">
+                                      <button className="btn btn-outline-primary ml-2" onClick={this.deleteBook} id={each.id}>Delete</button>
+                                    </div>
+                                  </Row>
+
+                                </div>
+
+                                <div className="card-body">
+
+                                  <Row>
+                                    <Col size="md-3">
+                                      <h5 className="card-title">{each.volumeInfo.authors}</h5>
+                                      <img src={each.volumeInfo.imageLinks.thumbnail} />
+                                    </Col>
+                                    <Col size="md-9">
+                                      <p>{each.volumeInfo.description}</p>
+                                    </Col>
+                                  </Row>
+
+                                  </div>
+
+                              </div>
+                          </>)
+                        })}
+                        
+                    </div>
+                  
+                ) : (
+                  <h3>No Results to Display</h3>
+                )}
+                  
+              </div>
             </Jumbotron>
           </Col>
         </Row>

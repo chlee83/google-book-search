@@ -17,25 +17,6 @@ class Search extends Component {
     link: ""
   };
 
-  componentDidMount() {
-    // this.loadBooks();
-    console.log("did mount")
-  }
-
-  // loadBooks = () => {
-  //   API.getBooks()
-  //     .then(res =>
-  //       this.setState({ books: res.data, title: "", author: "", synopsis: "" })
-  //     )
-  //     .catch(err => console.log(err));
-  // };
-
-  // deleteBook = id => {
-  //   API.deleteBook(id)
-  //     .then(res => this.loadBooks())
-  //     .catch(err => console.log(err));
-  // };
-
   saveButton = event => {
     const bookID = event.currentTarget.id;
 
@@ -46,11 +27,9 @@ class Search extends Component {
         API.saveBook(this.state.books[i]);
         
       } 
-
     }
-
-
-  }
+  };
+  
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -59,12 +38,14 @@ class Search extends Component {
     });
   };
 
+
   handleFormSubmit = event => {
     event.preventDefault();
     fetch('https://www.googleapis.com/books/v1/volumes?q=' + this.state.title)
       .then(data => data.json())
       .then(data => this.setState({books: data.items}));
   };
+
 
   render() {
     return (
@@ -116,13 +97,13 @@ class Search extends Component {
                               <div className="card-header">
 
                                 <Row>
-                                  <div className="col-md-3">
+                                  <div className="col-md-9">
                                     <h5>
                                       {each.volumeInfo.title}
                                     </h5>
                                   </div>
                                   
-                                  <div className="col-md-9 text-right">
+                                  <div className="col-md-3 text-right">
                                   <a href={each.volumeInfo.infoLink} target="_blank"><button className="btn btn-outline-info">View</button></a>
                                     <button className="btn btn-outline-primary ml-2" onClick={this.saveButton} id={each.id}>Save</button>
                                   </div>

@@ -20,12 +20,23 @@ class Search extends Component {
   saveButton = event => {
     const bookID = event.currentTarget.id;
 
+    const book = this.state.books;
     for (var i = 0; i < this.state.books.length; i++) {
 
-      if(bookID === this.state.books[i].id) {
-        console.log(this.state.books[i])
-        API.saveBook(this.state.books[i]);
-        
+      if(bookID === book[i].id) {
+        console.log(book[i])
+
+        const dataToSave = {
+          title: book[i].volumeInfo.title,
+          author: book[i].volumeInfo.authors[0],
+          description: book[i].volumeInfo.description,
+          image: book[i].volumeInfo.imageLinks.thumbnail,
+          link: book[i].volumeInfo.infoLink
+        }
+        console.log(dataToSave);
+
+        API.saveBook(dataToSave);
+
       } 
     }
   };

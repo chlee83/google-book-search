@@ -72,13 +72,14 @@ class Search extends Component {
                                 <div className="card-header">
 
                                   <Row>
-                                    <div className="col-md-3">
+                                    <div className="col-md-9">
                                       <h5>
-                                        {each.volumeInfo.title}
+                                        {each.title}
                                       </h5>
                                     </div>
                                     
-                                    <div className="col-md-9 text-right">
+                                    <div className="col-md-3 text-right">
+                                    <a href={each.link} target="_blank"><button className="btn btn-outline-info">View</button></a>
                                       <button className="btn btn-outline-primary ml-2" onClick={this.deleteBook} id={each.id}>Delete</button>
                                     </div>
                                   </Row>
@@ -89,11 +90,11 @@ class Search extends Component {
 
                                   <Row>
                                     <Col size="md-3">
-                                      <h5 className="card-title">{each.volumeInfo.authors}</h5>
-                                      <img src={each.volumeInfo.imageLinks.thumbnail} />
+                                      <h5 className="card-title">{each.authors}</h5>
+                                      <img src={each.image} />
                                     </Col>
                                     <Col size="md-9">
-                                      <p>{each.volumeInfo.description}</p>
+                                      <p>{each.description}</p>
                                     </Col>
                                   </Row>
 

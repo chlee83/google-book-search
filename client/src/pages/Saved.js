@@ -14,7 +14,8 @@ class Search extends Component {
     author: "",
     description: "",
     image: "",
-    link: ""
+    link: "",
+    _id: ""
   };
 
   componentDidMount() {
@@ -30,7 +31,8 @@ class Search extends Component {
           author: "",
           description: "",
           image: "",
-          link: ""
+          link: "",
+          _id: ""
         })
       )
       .catch(err => console.log(err));
@@ -67,7 +69,7 @@ class Search extends Component {
                           return (
                           <>
 
-                              <div className="card bg-light mb-3">
+                              <div className="card bg-light mb-3" key={each._id}>
 
                                 <div className="card-header">
 
@@ -80,7 +82,7 @@ class Search extends Component {
                                     
                                     <div className="col-md-3 text-right">
                                     <a href={each.link} target="_blank"><button className="btn btn-outline-info">View</button></a>
-                                      <button className="btn btn-outline-primary ml-2" onClick={this.deleteBook} id={each.id}>Delete</button>
+                                      <button className="btn btn-outline-primary ml-2" onClick={() => this.deleteBook(each._id)} id={each._id}>Delete</button>
                                     </div>
                                   </Row>
 

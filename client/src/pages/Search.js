@@ -103,7 +103,7 @@ class Search extends Component {
                       {this.state.books.map(each => {
                         return <>
 
-                            <div className="card bg-light mb-3">
+                            <div className="card bg-light mb-3" key={each._id}>
 
                               <div className="card-header">
 
